@@ -3,7 +3,7 @@
   By : Triston Stuart
 */
 
-const version = "1.0.0";
+const version = "1.0.1";
 
 const ErrorStrings = [
   'Argument passed is not a readline interface! To generate a readline interface pass no arg or a object with an "input" and "output" property.'
@@ -55,11 +55,12 @@ class Logger{
 
     let argType = checkArg(arg);
     let rl = {};
+    let readline = {};
 
     if (argType == 'rl'){
       rl = arg;
     }else if (argType == 'readline-constructor-arg'){
-      let readline = require('readline');
+      readline = require('readline');
       try {
         this.rl = readline.createInterface(arg);
       }catch (e){
@@ -67,7 +68,7 @@ class Logger{
         return e;
       }
     }else if (argType == 'readline-constructor-blank'){
-      let readline = require('readline');
+      readline = require('readline');
       rl = readline.createInterface({
         input: process.stdin,
         output: process.stdout
@@ -125,6 +126,8 @@ class Logger{
     this.logger.version = version;
     this.rl = rl;
     this.logger.rl = rl;
+    this.readline = readline;
+    this.logger.readline = readline;
   }
 
 }
